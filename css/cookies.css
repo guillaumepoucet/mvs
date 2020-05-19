@@ -1,0 +1,95 @@
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  background-color: white;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background-color: #023871;
+}
+
+.espace {
+  height: 2em;
+}
+
+/*Barre Nav*/
+.main {
+  width: 100%;
+  background-size: cover;
+  position: fixed;
+  top: 0px;
+  z-index: 10;
+  transition: .5s;
+  display: block;
+}
+
+/*logo*/
+.img {
+  margin-left: 1em;
+  float: left;
+}
+
+nav {
+  width: 100%;
+  height: 5em;
+  line-height: 3em;
+  border: none;
+  background-color: #023871 !important;
+}
+
+nav ul {
+  margin-right: 7%;
+  text-align: center;
+}
+
+nav ul li {
+  list-style-type: none;
+  display: inline-grid;
+  line-height: 5em;
+  font-weight: bold;
+  transition: 0.8s all;
+  color: white !important;
+}
+
+a:hover {
+  color: yellow !important;
+  text-decoration: underline;
+}
+
+
+nav ul li a {
+  text-decoration: none !important;
+  color: white !important;
+  opacity: 1;
+  padding: 0em 1em 0em 1em;
+}
+
+
+h3 {
+  margin-top: 5em;
+  color: white;
+  text-align: center;
+}
+
+h4 {
+  padding-top: 2%;
+  color: black;
+  text-align: center;
+}
+
+h5 {
+  padding-top: 2%;
+  color: black;
+  text-align: center;
+}
+
+.p {
+  padding: 2%;
+  margin: 2em;
+  border: 3px solid #023871;
+  background-color: white !important;
+}

@@ -1,0 +1,99 @@
+/********************************* GENERAL **************************************/
+
+html{
+    height: 100%;
+}
+
+body{
+    position: relative;
+    min-height: 100%;
+    background-color: white;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    text-align: center;
+}
+
+h2 {
+    padding-top : 3em;
+}
+
+.espace {
+    height: 3em;
+}
+
+p{
+    font-size: 2em;
+}
+
+/****************************** GESTION COMPTE **************************************/
+
+.titreG {
+    text-align: center;
+}
+
+.titreG h2 {
+    font-size: 4em;
+}
+
+
+/********************************* PARRALAXE **************************************/
+
+
+/********************************* PARRALAXE **************************************/
+
+  .pdf {
+      height: 1000px;
+      width: 1200px;
+  }
+
+  @media (max-width:991px) {
+
+    .pdf {
+        height: 700px;
+        width: 850px;
+    }
+  }
+
+  @media (max-width:750px) {
+
+    .pdf {
+        height: 700px;
+        width: 650px;
+    }
+  }
+
+  @media (max-width:650px) {
+
+    .pdf {
+        height: 700px;
+        width:550px;
+    }
+  }
+
+  @media (max-width:550px) {
+
+    .pdf {
+        height: 700px;
+        width: 450px;
+    }
+  }
+
+  @media (max-width:480px) {
+
+    .pdf {
+        height: 700px;
+        width: 450px;
+    }
+  }
+
+  @media (max-width:400px) {
+
+    .pdf {
+        height: 700px;
+        width: 350px;
+    }
+  }
+
+  
