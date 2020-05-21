@@ -1,11 +1,7 @@
-<?php if(empty($_SESSION))
-{ 
-  session_start();
-};
-
-include 'inc/interface/verif_co.php';
-
+<?php session_start();
+include 'inc/interface/verif_co.php'
 ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 

@@ -29,7 +29,7 @@
             <a href="reglement.php">Règlement Intérieur</a>
             <a href="charte.php">Charte Réseau</a>
             <a href="tarif-t.php">Tarif Traction</a>
-            <a href="tarif-d.php"> Tarif Distibution</a>
+            <a href="tarif-d.php">Tarif Distibution</a>
           </div>
         <li class="li"><a href="repertoire.php">Répertoire</a></li>
         <li class="li"><a href="carte.php">Carte Interactive</a></li>
