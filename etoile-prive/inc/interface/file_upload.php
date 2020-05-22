@@ -57,6 +57,10 @@ move_uploaded_file($_FILES[$doc]["tmp_name"], "..\..\\" . $targetdocPath);
 
 $sql->closeCursor();
 
-if($type_doc == 3) {
+if ($type_doc == 3) {
     header('location:..\..\reglement.php');
-}
+} elseif ($type_doc == 2) {
+    header('location:..\..\tarif-d.php');
+} elseif ($type_doc == 3) {
+    header('location:..\..\charte.php');
+};

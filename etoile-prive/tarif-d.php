@@ -63,7 +63,10 @@
                     <div class="col-md-12">
                     <?php endif ?>
                     <?php include 'inc/interface/co.php';
-                    $req = $dbh->query('SELECT * FROM `documents` WHERE type_doc = 2');
+                    $req = $dbh->query('SELECT * FROM `documents` 
+                                        WHERE type_doc = 2
+                                        ORDER BY date_upload
+                                        DESC LIMIT 1');
                     $doc = $req->fetch(); ?>
                     <iframe class="pdf" src="<?= $doc['url_doc'] ?>" width="100%"></iframe>
                     </div>

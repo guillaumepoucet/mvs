@@ -50,8 +50,16 @@
 
         </div>
 
+        <?php
+        include 'inc/interface/co.php';
+        $req = $dbh->prepare('  SELECT * FROM date_traction
+                                ORDER BY date_modification
+                                DESC LIMIT 1');
+        $req->execute();
+        $date = $req->fetch(); ?>
+
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="1">
-            <h2>Tarif traction HT applicable au <span class="dateTraction">01/03/2019</span></h2>
+            <h2>Tarif traction HT applicable au <span class="dateTraction"><?= date('d/m/Y', strtotime($date['date_applicable'])) ?></span></h2>
 
             <?php if (isset($_SESSION['admin'])) : ?>
                 <a class="btn btn-warning dateEdit">Modifier la date</a>

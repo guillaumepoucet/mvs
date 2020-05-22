@@ -27,6 +27,13 @@ p{
     font-size: 2em;
 }
 
+.form-control-file[type="submit"] {
+    margin-top: 1rem;
+    border-radius: 5px;
+    border: 1px solid gray;
+    padding: 5px;
+}
+
 /****************************** GESTION COMPTE **************************************/
 
 .titreG {

@@ -67,7 +67,10 @@ include 'inc/interface/verif_co.php'
                     <div class="col-md-12">
                     <?php endif ?>
                     <?php include 'inc/interface/co.php';
-                    $req = $dbh->query('SELECT * FROM `documents` WHERE type_doc = 1');
+                    $req = $dbh->query('SELECT * FROM `documents` 
+                                        WHERE type_doc = 1
+                                        ORDER BY date_upload
+                                        DESC LIMIT 1');
                     $doc = $req->fetch(); ?>
                     <iframe class="pdf" src="<?= $doc['url_doc'] ?>" height="1200px"></iframe>
                     </div>
