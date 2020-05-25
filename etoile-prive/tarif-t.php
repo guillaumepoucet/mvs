@@ -50,6 +50,7 @@
 
         </div>
 
+        <!-- récupération de la date dans la BDD -->
         <?php
         include 'inc/interface/co.php';
         $req = $dbh->prepare('  SELECT * FROM date_traction
@@ -57,10 +58,14 @@
                                 DESC LIMIT 1');
         $req->execute();
         $date = $req->fetch(); ?>
+        <!-- /récupération de la date dans la BDD -->
 
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="1">
+
+            <!-- affichage de la date -->
             <h2>Tarif traction HT applicable au <span class="dateTraction"><?= date('d/m/Y', strtotime($date['date_applicable'])) ?></span></h2>
 
+            <!-- Pour les admin, possibilité de changer la date -->
             <?php if (isset($_SESSION['admin'])) : ?>
                 <a class="btn btn-warning dateEdit">Modifier la date</a>
                 <a class="btn btn-warning dateEditCancel">Show</a>
@@ -68,6 +73,34 @@
                     <input type="date" name="date-traction" id="date-traction">
                 </form>
             <?php endif ?>
+            <!-- /Pour les admin, possibilité de changer la date -->
+
+            <script>
+                $(function() {
+                    var date = $('.dateTraction');
+                    $('.dateEdit').click(function() {
+                        var dateForm = new Date($('#date-traction').val());
+                        day = dateForm.getDate();
+                        month = dateForm.getMonth() + 1;
+                        if((day >= 1) && (day <= 9)) {
+                            day = '0' + day
+                        }
+                        if((month >= 1) && (month <= 9)) {
+                            month = '0' + month
+                        }
+                        year = dateForm.getFullYear();
+                        var newDate = ([day, month, year].join('/'));
+                        var datePhp = ([year, month, day].join('-'));
+                        console.log(datePhp);
+                        $.post('inc\\interface\\edit_date_traction.php', {
+                                datePhp: datePhp
+                        }, function(data) {
+                            date.text(newDate);
+                        })
+                    })
+                })
+            </script>
+            <!-- /affichage de la date -->
 
 
             <div class="espace"></div>
@@ -133,7 +166,7 @@
 
     <?php include('footer.php'); ?>
 
-    <script src="js\editDateTraction.js"></script>
+    <!-- <script src="js\editDateTraction.js"></script> -->
 
 </body>
 

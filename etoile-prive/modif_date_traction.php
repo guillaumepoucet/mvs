@@ -18,3 +18,7 @@ $sql->execute(array(
 $sql->closeCursor();
 
 header('location:..\..\tarif-t.php');
+
+?> 
+
+<p>balbalabl</p>
