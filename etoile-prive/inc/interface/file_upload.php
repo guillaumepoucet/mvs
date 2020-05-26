@@ -3,7 +3,7 @@
 require 'co.php';
 
 // récupére le type de document dans l'URL, qui correspond aussi à $_FILES[]
-$doc = $_GET['doc'];
+$doc = $_POST['doc'];
 
 // type_doc #1 : Charte réseau
 // type_doc #2 : Tarif distribution
@@ -57,10 +57,16 @@ move_uploaded_file($_FILES[$doc]["tmp_name"], "..\..\\" . $targetdocPath);
 
 $sql->closeCursor();
 
-if ($type_doc == 3) {
-    header('location:..\..\reglement.php');
-} elseif ($type_doc == 2) {
-    header('location:..\..\tarif-d.php');
-} elseif ($type_doc == 3) {
-    header('location:..\..\charte.php');
-};
+if($uploadOk == 0) {
+    echo 0;
+} else {
+    echo $targetdocPath;
+}
+
+// if ($type_doc == 3) {
+//     header('location:..\..\reglement.php');
+// } elseif ($type_doc == 2) {
+//     header('location:..\..\tarif-d.php');
+// } elseif ($type_doc == 3) {
+//     header('location:..\..\charte.php');
+// };

@@ -71,7 +71,7 @@ include 'inc/interface/verif_co.php'
             <h6 class="card-subtitle mb-2 text-muted"><?= date('d M Y', strtotime($su['date'])) ?></h6>
             <p class="card-text"><?= $su['contenu'] ?></p>
           </div>
-            <div class="card-footer text-left"><?php if (isset($_SESSION['admin'])) : ?>
+            <div class="card-footer text-right"><?php if (isset($_SESSION['admin'])) : ?>
                 <a href='modif_mess.php?id=<?= $su['id_message'] ?>' class='btn btn-primary mr-3'>Modifier</a>
                 <a href='inc/interface/delete_mess.php?id=<?= $su['id_message'] ?>' class='btn btn-danger'>Supprimer</a>
               <?php endif ?></div>
