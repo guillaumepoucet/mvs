@@ -1,5 +1,47 @@
+:root {
+  --nav-heigth: 80px;
+
+  --blue-lg: #274F95;
+  --blue: #023871 !important;
+}
+
 html {
   height: 100%;
+}
+
+.hello {
+  margin-top: var(--nav-heigth);
+  margin-bottom: 0px;
+  background-color: var(--blue-lg);
+  color: white;
+  padding: 1rem 0;
+}
+
+#jumbotron {
+  color: white !important;
+  background-image: url('../../images/mbsP.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 30vw;
+  margin: 0;
+  /* enlève une fine bordure blanche */
+  position: relative;
+  top: -1px;
+}
+
+.pop {
+  padding: 0 0.5em 1em;
+  background: var(--blue-lg);
+  color: white;
+  position: relative;
+  top: -2px;
+  line-height: 1.2em;
+}
+
+.card .card-header {
+  background-color: var(--blue);
+  color: white;
 }
 
 body {
@@ -19,15 +61,11 @@ body {
   color: white;
 }
 
-#jumbotron {
-  margin-top: 5%;
-}
-
 #tit {
   color: whitesmoke;
   background-color: transparent;
-  font-size: 4em;
-  position: absolute;
+  /* font-size: 4em; */
+  /* position: absolute; */
 }
 
 .camion {
@@ -176,7 +214,9 @@ body {
   transform: translate3d(0, -100%, 0);
 }
 
-.hovereffect:hover a, .hovereffect:hover p, .hovereffect:hover h2 {
+.hovereffect:hover a,
+.hovereffect:hover p,
+.hovereffect:hover h2 {
   opacity: 1;
   filter: alpha(opacity=100);
   -webkit-transform: translate3d(0, 0, 0);
@@ -212,10 +252,4 @@ body {
   -o-transform: scale(1.25);
   /* Opera */
   transform: scale(1.25);
-}
-
-.pop {
-  position: absolute;
-  color: white;
-  margin-top: 40%;
 }
