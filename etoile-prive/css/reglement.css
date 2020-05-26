@@ -1,10 +1,10 @@
 /********************************* GENERAL **************************************/
 
-html{
+html {
     height: 100%;
 }
 
-body{
+body {
     position: relative;
     min-height: 100%;
     background-color: white;
@@ -16,14 +16,14 @@ body{
 }
 
 h2 {
-    padding-top : 3em;
+    padding-top: 3em;
 }
 
 .espace {
     height: 3em;
 }
 
-p{
+p {
     font-size: 2em;
 }
 
@@ -54,60 +54,88 @@ p{
 
 /********************************* PARRALAXE **************************************/
 
-  .pdf {
-      height: 1000px;
-        width: 100%;
-  }
+.pdf {
+    height: 1000px;
+    width: 100%;
+}
 
-  @media (max-width:991px) {
+@media (max-width:991px) {
 
     .pdf {
         height: 700px;
         width: 850px;
     }
-  }
+}
 
-  @media (max-width:750px) {
+@media (max-width:750px) {
 
     .pdf {
         height: 700px;
         width: 650px;
     }
-  }
+}
 
-  @media (max-width:650px) {
-
-    .pdf {
-        height: 700px;
-        width:550px;
-    }
-  }
-
-  @media (max-width:550px) {
+@media (max-width:650px) {
 
     .pdf {
         height: 700px;
-        width: 450px;
+        width: 550px;
     }
-  }
+}
 
-  @media (max-width:480px) {
+@media (max-width:550px) {
 
     .pdf {
         height: 700px;
         width: 450px;
     }
-  }
+}
 
-  @media (max-width:400px) {
+@media (max-width:480px) {
+
+    .pdf {
+        height: 700px;
+        width: 450px;
+    }
+}
+
+@media (max-width:400px) {
 
     .pdf {
         height: 700px;
         width: 350px;
     }
-  }
+}
 
 /********************************* TARIF TRACTION **************************************/
 .dateEdit {
-    margin: 1em;
+    margin: 1em 0 2em;
+}
+
+.dateSave,
+.dateEditCancel,
+#date-traction {
+    margin: 1rem 0.5rem !important;
+}
+
+.dateEditCancel {
+    color: white !important;
+}
+
+.hidden,
+.error {
+    display: none !important;
+}
+
+.display-block {
+    display: block !important;
+}
+
+.error {
+    color: red;
+}
+
+.modal-body,
+#date-traction {
+    font-size: 1.1rem !important;
 }

@@ -64,46 +64,45 @@
 
             <!-- affichage de la date -->
             <h2>Tarif traction HT applicable au <span class="dateTraction"><?= date('d/m/Y', strtotime($date['date_applicable'])) ?></span></h2>
+            <!-- /affichage de la date -->
 
             <!-- Pour les admin, possibilité de changer la date -->
             <?php if (isset($_SESSION['admin'])) : ?>
                 <a class="btn btn-warning dateEdit">Modifier la date</a>
-                <a class="btn btn-warning dateEditCancel">Show</a>
-                <form action="" id="dateTractionEdit">
-                    <input type="date" name="date-traction" id="date-traction">
+                <form action="" id="dateTractionEdit" class="hidden">
+                    <input type="date" name="date-traction" id="date-traction"><br>
+                    <span class="verify-date error">* Veuillez entrer une date valide<br></span>
+                    <a class="btn btn-warning dateSave" data-toggle="modal">Appliquer</a>
+                    <a class="btn btn-danger dateEditCancel">Annuler</a>
+
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabel">Nouvelle date tarif traction HT</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Sauvegarder la nouvelle date ?<br>
+                                    <strong class="dateModal"></strong>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary modal-cancel" data-dismiss="modal">Annuler</button>
+                                    <button type="button" class="btn btn-primary modal-ok">Sauvegarder</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Modal -->
+
                 </form>
             <?php endif ?>
             <!-- /Pour les admin, possibilité de changer la date -->
 
-            <script>
-                $(function() {
-                    var date = $('.dateTraction');
-                    $('.dateEdit').click(function() {
-                        var dateForm = new Date($('#date-traction').val());
-                        day = dateForm.getDate();
-                        month = dateForm.getMonth() + 1;
-                        if((day >= 1) && (day <= 9)) {
-                            day = '0' + day
-                        }
-                        if((month >= 1) && (month <= 9)) {
-                            month = '0' + month
-                        }
-                        year = dateForm.getFullYear();
-                        var newDate = ([day, month, year].join('/'));
-                        var datePhp = ([year, month, day].join('-'));
-                        console.log(datePhp);
-                        $.post('inc\\interface\\edit_date_traction.php', {
-                                datePhp: datePhp
-                        }, function(data) {
-                            date.text(newDate);
-                        })
-                    })
-                })
-            </script>
-            <!-- /affichage de la date -->
-
-
-            <div class="espace"></div>
             <center>
                 <div class="col-xl-11 col-lg-11 col-md-11 col-sm-12 col-12">
 
@@ -159,14 +158,65 @@
     </div>
     </div>
 
+    <?= var_dump($_SESSION); ?> <?php include('footer.php'); ?>
 
-
-
-
-
-    <?php include('footer.php'); ?>
-
-    <!-- <script src="js\editDateTraction.js"></script> -->
+    <script>
+        $(function() {
+            var date = $('.dateTraction');
+            var cancel = function() {
+                $('.hidden').removeClass('hidden');
+                $('#dateTractionEdit').addClass('hidden');
+            }
+            $('.dateEdit').click(function() {
+                $('.hidden').removeClass('hidden');
+                $('.dateEdit').addClass('hidden');
+            });
+            $('.dateEditCancel').click(function() {
+                cancel();
+            });
+            // récupére et formate la date
+            $('.dateSave').click(function(e) {
+                var dateForm = new Date($('#date-traction').val());
+                var dateBrut = dateForm.getTime();
+                if (isNaN(dateBrut)) {
+                    $('.error').addClass('display-block');
+                } else {
+                    day = dateForm.getDate();
+                    month = dateForm.getMonth() + 1;
+                    year = dateForm.getFullYear();
+                    if ((day >= 1) && (day <= 9)) {
+                        day = '0' + day
+                    }
+                    if ((month >= 1) && (month <= 9)) {
+                        month = '0' + month
+                    }
+                    // formate date pour la page
+                    var newDate = ([day, month, year].join('/'));
+                    // formate date SQL
+                    var datePhp = ([year, month, day].join('-'));
+                    // modal pour confirmer ou non la nouvelle date
+                    $('#myModal').modal('show');
+                    $('.dateModal').text(newDate);
+                    $('.modal-ok').click(function() {
+                        // envoi de la nouvelle date ajax
+                        $.post('inc\\interface\\edit_date_traction.php', {
+                            datePhp: datePhp
+                        }, function(data) {
+                            $('#myModal').modal('hide');
+                            cancel();
+                            date.text(newDate);
+                            $('#date-traction').val("");
+                        })
+                        // /envoi de la nouvelle date ajax
+                    })
+                    $('.modal-cancel').click(function() {
+                        cancel();
+                    })
+                    // /modal pour confirmer ou non la nouvelle date
+                }
+            })
+        })
+    </script>
 
 </body>
 
