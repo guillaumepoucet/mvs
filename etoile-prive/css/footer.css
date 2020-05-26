@@ -1,9 +1,49 @@
-.a {
-  color: white;
+:root {
+  --nav-heigth: 80px;
+
+  --blue-lg: #274F95;
+  --blue: #023871 !important;
+  --yellow: #E5BB16 !important;
 }
 
-.a:hover {
-  background-color: #e5bb16;
-  font-size: 18px;
+footer {
+  background-color: var(--blue);
+}
+
+footer ul {
+  padding: 0 0 0 0;
+  list-style: none
+}
+
+footer p {
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: large;
+}
+
+footer h4,
+footer p,
+footer i {
+  color: var(--yellow);
+}
+
+footer a,
+footer span,
+footer ul {
+  color: white !important;
+}
+
+footer .mail-link {
+  text-decoration: underline;
+}
+
+footer .a:hover {
   transition: 0.8s all;
 }
+
+footer i {
+  display: inline-block;
+  width: 18px;
+  text-align: center;
+}
+

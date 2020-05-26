@@ -3,6 +3,7 @@
 
   --blue-lg: #274F95;
   --blue: #023871 !important;
+  --yellow: #E5BB16 !important;
 }
 
 html {
@@ -15,15 +16,17 @@ html {
   background-color: var(--blue-lg);
   color: white;
   padding: 1rem 0;
+  font-size: 2.5rem !important;
 }
 
 #jumbotron {
   color: white !important;
   background-image: url('../../images/mbsP.jpg');
   background-position: center;
-  background-size: cover;
+  background-size: contain;
+  background-color: var(--blue-lg);
   background-repeat: no-repeat;
-  height: 30vw;
+  height: 40vw;
   margin: 0;
   /* enlève une fine bordure blanche */
   position: relative;
@@ -252,4 +255,22 @@ body {
   -o-transform: scale(1.25);
   /* Opera */
   transform: scale(1.25);
+}
+
+@media (min-width: 768px) {
+  #jumbotron {
+    background-size: contain;
+    background-color: var(--blue-lg);
+    height: 20vw;
+  }
+  .display-4 {
+    font-size: 5rem !important;
+    padding-top: 0.5em;
+  }
+  .pop {
+    font-size: 2rem;
+  }
+  #msg-container h4 {
+    font-size: 2em;
+  }
 }

@@ -40,7 +40,7 @@ include 'inc/interface/verif_co.php'
   <?php include('header.php'); ?>
 
   <!-- jumbotron -->
-  <h2 class="hello">Bonjour
+  <h2 class="hello display-4">Bonjour
     <span>
       <?php if (isset($_SESSION['admin'])) {
         echo $_SESSION['admin'];
@@ -57,26 +57,28 @@ include 'inc/interface/verif_co.php'
   ?>
 
   <!-- /jumbotron -->
-  <div class="container">
+  <div id="msg-container" class="container">
     <div class="row justify-content-center">
-      <h4 class="my-2">Derniers messages</h4>
+      <h4 class="col-12 my-3 my-md-4">Derniers messages</h4>
+
       <?php
       $super = $dbh->query('SELECT * FROM message WHERE id_message >1 ORDER BY date DESC LIMIT 50');
       $sup = $super->fetchAll();
       foreach ($sup as $su) : ?>
-        <div class="card m-2">
+        <div class="card w-100 m-2 my-md-3 mx-md-5">
           <h5 class="card-header"><?= $su['titre'] ?></h5>
           <div class="card-body text-left">
-            <h6 class="card-subtitle mb-2 text-muted"><?= $su['date'] ?></h6>
+            <h6 class="card-subtitle mb-2 text-muted"><?= date('d M Y', strtotime($su['date'])) ?></h6>
             <p class="card-text"><?= $su['contenu'] ?></p>
-            <?php if (isset($_SESSION['admin'])) : ?>
-              <a href='modif_mess.php?id=<?= $su['id_message'] ?>' class='btn btn-primary mr-3'>Modifier</a>
-              <a href='inc/interface/delete_mess.php?id=<?= $su['id_message'] ?>' class='btn btn-danger'>Supprimer</a>
-            <?php endif ?>
           </div>
+            <div class="card-footer text-left"><?php if (isset($_SESSION['admin'])) : ?>
+                <a href='modif_mess.php?id=<?= $su['id_message'] ?>' class='btn btn-primary mr-3'>Modifier</a>
+                <a href='inc/interface/delete_mess.php?id=<?= $su['id_message'] ?>' class='btn btn-danger'>Supprimer</a>
+              <?php endif ?></div>
         </div>
 
       <?php endforeach ?>
+
     </div>
   </div>
   <?php include('footer.php'); ?>

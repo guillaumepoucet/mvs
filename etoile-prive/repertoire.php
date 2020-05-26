@@ -45,7 +45,7 @@ include 'inc/interface/verif_co.php'; ?>
 
 
     <div class="fillframe">
-      <div class="container-fluid">
+      <div class="container">
         <div class="row">
           <form method="POST" action="#" class="col-12 text-center offset-3 mt-5">
             <select class="select" name="name">
@@ -63,37 +63,38 @@ include 'inc/interface/verif_co.php'; ?>
                 }
               }
               ?>
-        </div>
 
 
 
-        <div id="rer" class="intframe">
-          <div class="fillframe">
-            <form method="POST" action="#" class="formframe">
-              <input type="hidden" name="token" value="repres">
-              <input class="btn btn-primary btn-lg mb-5" type="submit" value="Recherche">
 
-            </form>
-          </div>
+              <div id="rer" class="intframe">
+                <div class="fillframe">
+                  <form method="POST" action="#" class="formframe">
+                    <input type="hidden" name="token" value="repres">
+                    <input class="btn btn-primary btn-lg mb-5" type="submit" value="Recherche">
+
+                  </form>
+                </div>
+              </div>
+
+
+
+
+              <div class="resframe2"></div>
+
+              <?php include 'inc/interface/repertoire.php'; ?>
+
+              <div class="col-7 mx-auto">
+                <li id="li" class="repertoire-dl">
+                  <p class="txtmed"><a href="data/repertoire-2018.xlsx" class="y-txtmed">Téléchargez la liste complète : ICI !</a> </p>
+                </li>
+              </div>
+            </select>
+          </form>
         </div>
       </div>
-    </div>
 
-
-    <div class="resframe2">
-
-    </div>
-
-    <?php include 'inc/interface/repertoire.php'; ?>
-
-    <div class="col-12">
-      <li id="li" class="repertoire-dl">
-        <p class="txtmed"><a href="data/repertoire-2018.xlsx" class="y-txtmed">Téléchargez la liste complète : ICI !</a> </p>
-      </li>
-    </div>
-  </div>
-
-  <?php include('footer.php'); ?>
+      <?php include('footer.php'); ?>
 </body>
 
 </html>
