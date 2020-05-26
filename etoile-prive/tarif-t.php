@@ -158,7 +158,7 @@
     </div>
     </div>
 
-    <?= var_dump($_SESSION); ?> <?php include('footer.php'); ?>
+    <?php include('footer.php'); ?>
 
     <script>
         $(function() {
