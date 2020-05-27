@@ -10,20 +10,21 @@ $doc = $_POST['doc'];
 // type_doc #3 : Règlement intérieur
 
 // On vérifie que l'utilisateur a bien choisi un fichier
-if (!empty($_FILES[$doc]['name'])) {
+if (!empty($_FILES['file']['name'])) {
     // conditions dépendent du $_FILE[name]
-    if (isset($_FILES['distrib'])) {
+    // type_doc est uploadé dans BDD plus bas
+    if ($doc == 'distrib') {
         $type_doc = 2;
-    } elseif (isset($_FILES['charte'])) {
+    } elseif ($doc == 'charte') {
         $type_doc = 1;
-    } elseif (isset($_FILES['reglement'])) {
+    } elseif ($doc == 'reglement') {
         $type_doc = 3;
     }
 } else {
     throw new Exception('Vous n\'avez pas sélectionner de fichier.');
 }
-
-$file = basename($_FILES[$doc]["name"]);
+exit;
+$file = basename($_FILES['file']['name']);
 $imageFileType = strtolower(pathinfo($file, PATHINFO_EXTENSION));
 // Vérification que le fichier soit bien au format PDF
 if ($imageFileType != "pdf") {
@@ -53,15 +54,11 @@ $sql->execute(array(
 ));
 
 // Upload du fichier
-move_uploaded_file($_FILES[$doc]["tmp_name"], "..\..\\" . $targetdocPath);
+move_uploaded_file($_FILES['file']["tmp_name"], "..\..\\" . $targetdocPath);
 
 $sql->closeCursor();
 
-if($uploadOk == 0) {
-    echo 0;
-} else {
-    echo $targetdocPath;
-}
+echo $targetdocPath;
 
 // if ($type_doc == 3) {
 //     header('location:..\..\reglement.php');

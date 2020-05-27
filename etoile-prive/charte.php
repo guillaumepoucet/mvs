@@ -55,7 +55,8 @@ include 'inc/interface/verif_co.php'
                             <form id="charte-doc" method="POST" action="inc\interface\file_upload.php" enctype="multipart/form-data">
                                 <div class="form-group">
                                     <label for="exampleFormControlFile1">Choisissez le document</label>
-                                    <input type="file" name="charte" class="form-control-file" id="exampleFormControlFile1">
+                                    <input type="file" name="charte" class="form-control-file input-file" id="exampleFormControlFile1">
+                                    <small>* Le fichier doit être au format .PDF</small>
                                     <input type="submit" class="form-control-file" id="exampleFormControlFile1">
                                 </div>
                             </form>
@@ -79,7 +80,10 @@ include 'inc/interface/verif_co.php'
 
         <div class="espace"></div>
         <div class="espace"></div>
+
         <?php include('footer.php'); ?>
+
+        <script src="js\file_upload.js"></script>
 
 </body>
 

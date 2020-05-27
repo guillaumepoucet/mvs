@@ -54,11 +54,12 @@
                             <form id="reglement-doc" method="POST" enctype="multipart/form-data">
                                 <div class="form-group">
                                     <label for="exampleFormControlFile1">Choisissez le document</label>
-                                    <input type="file" name="reglement" id="file" class="form-control-file" id="exampleFormControlFile1">
+                                    <input type="file" name="reglement" id="file" class="form-control-file input-file" id="exampleFormControlFile1">
+                                    <small>* Le fichier doit être au format .PDF</small>
                                     <input type="submit" class="form-control-file" id="btn-upload">
                                 </div>
                             </form>
-
+                            <div class="modal-js"></div>
                         </div>
                     </div>
                 </div>
@@ -75,47 +76,14 @@
                     <iframe class="pdf" src="<?= $doc['url_doc'] ?>" height="1200px"></iframe>
                     </div>
                 </div>
-                <script>
-                    $(function() {
-                        // type de document
-                        var typeDoc = $('#file').attr('name');
-                        $('#btn-upload').click(function(e) {
-                            e.preventDefault();
-                            var pdfPath = $('iframe').attr('src');
-                            var files = $('#file')[0].files[0];
-                            var fd = new FormData();
-                            fd.append('file', files);
-                            fd.append('doc', typeDoc);
-                            // for (var pair of fd.entries()) {
-                            //     console.log(pair[0] + ', ' + pair[1]);
-                            // }
-                            $.ajax({
-                                url: "inc\\interface\\file_upload.php",
-                                type: 'POST',
-                                data: fd,
-                                contentType: false,
-                                processData: false,
-                                success: function(response) {
-                                    if (response != 0) {
-                                        pdfPath = response;
-                                    } else {
-                                        alert('pasmarché');
-                                    }
-                                },
-                                error: function() {
-                                    alert('error');
-                                }
-                            })
-                        })
 
-                    });
-                </script>
         </div>
         <div class="espace"></div>
         <div class="espace"></div>
+
         <?php include('footer.php'); ?>
 
+        <script src="js\file_upload.js"></script>
 </body>
-<!-- action="inc\interface\file_upload.php?doc=reglement" -->
 
 </html>

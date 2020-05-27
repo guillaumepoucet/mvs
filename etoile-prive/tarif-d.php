@@ -51,7 +51,8 @@
                             <form id="tarif-d-doc" method="POST" action="inc\interface\file_upload.php?doc=distrib" enctype="multipart/form-data">
                                 <div class="form-group">
                                     <label for="exampleFormControlFile1">Choisissez le document</label>
-                                    <input type="file" name="distrib" class="form-control-file" id="exampleFormControlFile1">
+                                    <input type="file" name="distrib" class="form-control-file input-file" id="exampleFormControlFile1">
+                                    <small>* Le fichier doit être au format .PDF</small>
                                     <input type="submit" class="form-control-file" id="exampleFormControlFile1">
                                 </div>
                             </form>
@@ -74,7 +75,10 @@
         </div>
         <div class="espace"></div>
         <div class="espace"></div>
+        
         <?php include('footer.php'); ?>
+
+        <script src="js\file_upload.js"></script>
 
 </body>
 
