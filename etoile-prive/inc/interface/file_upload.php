@@ -23,13 +23,15 @@ if (!empty($_FILES['file']['name'])) {
 } else {
     throw new Exception('Vous n\'avez pas sélectionner de fichier.');
 }
-exit;
+
 $file = basename($_FILES['file']['name']);
 $imageFileType = strtolower(pathinfo($file, PATHINFO_EXTENSION));
 // Vérification que le fichier soit bien au format PDF
 if ($imageFileType != "pdf") {
-    throw new Exception("Désolé, seulement les fichiers PDF sont acceptés.");
     $uploadOk = 0;
+    // erreur prise en charge dans fonction ajax
+    echo 0;
+    exit;
 };
 
 $uploadOk = 1;

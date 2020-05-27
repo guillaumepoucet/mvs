@@ -17,7 +17,7 @@ $(function () {
             // }
             $('#myModal').modal('show');
             $('.file_name').text(files.name);
-            $('modal-ok').click(function () {
+            $('.modal-ok').click(function () {
                 $.ajax({
                     url: "inc\\interface\\file_upload.php",
                     type: 'POST',
@@ -26,10 +26,20 @@ $(function () {
                     cache: false,
                     processData: false,
                     success: function (data) {
-                        $('iframe').attr('src', data);
+                        if (data == 0) {
+                            alert("Le fichier doit être au format .PDF");
+                            $('#myModal').modal('hide');
+                            $('.input-file').val('');
+                        } else {
+                            $('#myModal').modal('hide');
+                            $('iframe').attr('src', data);
+                            $('.input-file').val('');
+                        }
                     },
                     error: function () {
+                        $('#myModal').modal('hide');
                         alert('Téléchargement échoué');
+                        $('.input-file').val('');
                     },
                     dataType: 'text'
                 })
