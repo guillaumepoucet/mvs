@@ -84,7 +84,7 @@ include 'inc/interface/verif_co.php'; ?>
 
               <?php include 'inc/interface/repertoire.php'; ?>
 
-              <div class="col-7 mx-auto">
+              <div class="col col-md-7 mx-auto">
                 <li id="li" class="repertoire-dl">
                   <p class="txtmed"><a href="data/repertoire-2018.xlsx" class="y-txtmed">Téléchargez la liste complète : ICI !</a> </p>
                 </li>
