@@ -41,7 +41,7 @@ form .card .card-footer {
   background-color: #fff;
   border-color: #80bdff;
   outline: 0;
-  box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, .25);
 }
 
 .pell-content {
@@ -72,4 +72,10 @@ form .card .card-footer {
 
 .pell-button-selected {
   background-color: #F0F0F0;
+}
+
+/* Edition de message modif_mess.php */
+
+.edit-msg-container {
+  margin-top: calc(var(--nav-heigth)*2);
 }

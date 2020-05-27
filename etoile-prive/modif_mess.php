@@ -1,6 +1,7 @@
 <?php session_start();
-if(!isset($_SESSION['admin'])){
-	header('location:loggin.php');}?>
+if (!isset($_SESSION['admin'])) {
+	header('location:loggin.php');
+} ?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -9,74 +10,117 @@ if(!isset($_SESSION['admin'])){
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<!--FAVICON-->
 	<link rel="apple-touch-icon" sizes="57x57" href="../images/apple-icon-57x57.png">
-<link rel="apple-touch-icon" sizes="60x60" href="../images/apple-icon-60x60.png">
-<link rel="apple-touch-icon" sizes="72x72" href="../images/apple-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="76x76" href="../images/apple-icon-76x76.png">
-<link rel="apple-touch-icon" sizes="114x114" href="../images/apple-icon-114x114.png">
-<link rel="apple-touch-icon" sizes="120x120" href="../images/apple-icon-120x120.png">
-<link rel="apple-touch-icon" sizes="144x144" href="../images/apple-icon-144x144.png">
-<link rel="apple-touch-icon" sizes="152x152" href="../images/apple-icon-152x152.png">
-<link rel="apple-touch-icon" sizes="180x180" href="../images/apple-icon-180x180.png">
-<link rel="icon" type="image/png" sizes="192x192"  href="../images/android-icon-192x192.png">
-<link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="96x96" href="../images/favicon-96x96.png">
-<link rel="icon" type="image/png" sizes="16x16" href="../images/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<meta name="msapplication-TileColor" content="#ffffff">
-<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
-<meta name="theme-color" content="#ffffff">
-<!--END FAVICON-->
+	<link rel="apple-touch-icon" sizes="60x60" href="../images/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="../images/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="../images/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="../images/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="../images/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="../images/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="../images/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="../images/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192" href="../images/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="../images/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="../images/favicon-16x16.png">
+	<link rel="manifest" href="/manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+	<!--END FAVICON-->
 	<title>Modification de message</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" media="screen" href="css/support.css">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-		integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 	<link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 	<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+	<link rel="stylesheet" href="dist\pell.css">
 
 </head>
 
 <body>
 
-	<?php include('header.php');?>
+	<?php include('header.php'); ?>
 
-	<div class="container-fluid mt-5">
-		<div class="row mt-5">
-			<div class="col-xl-4 col-lg-4 col-md-3 col-sm-12 col-12 mt-5"> </div>
-			<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 mt-5">
-				<form method="post">
+	<div class="container-fluid edit-msg-container">
+		<div class="row justify-content-center">
+			<div class="mx-lg-6 col-lg-6 col-md-6 col-sm-12 col-12">
 				<?php
 				include 'inc/interface/co.php';
-					$current_id=$_GET['id'];
-					$req=$dbh->query('SELECT * from message WHERE id_message= '.$current_id.'');
-					$res=$req->fetch();
-					?>
-					<div class="form-group">
-						<p>modifier un message :</p>
-						<input type="text" class="form-control" name="titre" value="<?=$res['titre']?>" placeholder="Titre du message">
-						<textarea id="textarea" name="conte" placeholder="Contenu du message" class="form-control"
-							required><?=$res['contenu']?></textarea>
-						<input type="date" class="form-control" value="<?=$res['date']?>" name="date">
-					</div>
-					<button type="submit" name="submit2" class="btn btn-primary btn-lg">Modifier</button>
-					<?php
-				$conte=$_POST['conte'];
-				$titre=$_POST['titre'];
-				$date =$_POST['date'];
-				if(isset($_POST['submit2'])){
+				$current_id = $_GET['id'];
+				$req = $dbh->query('SELECT * from message WHERE id_message= ' . $current_id . '');
+				$res = $req->fetch();
+				?>
+				<form method="post">
+					<div class="card">
+						<h5 class="card-header">Modifier un message</h5>
+						<div class="card-body text-left">
+							<div class="form-group">
+								<h5 class="card-title">Choississez une date</h5>
+								<input type="date" class="form-control col-4" name="date" value="<?= $res['date'] ?>">
+							</div>
+							<div class="form-group">
+								<h5 class="card-title">Titre</h5>
+								<input type="text" class="form-control form-control-lg" name="titre" value="<?= $res['titre'] ?>" placeholder="Titre du message">
+							</div>
+							<div class="form-group">
+								<div class="pell">
+									<div class="content">
+										<div id="editor" class="pell"></div>
+										<div style="margin-top:20px;">
+											<h5 class="card-title">Aperçu</h5>
+											<div id="text-output"></div>
+										</div>
+										<div style="margin-top:20px; display:none;">
+											<pre id="html-output"></pre>
+										</div>
+									</div>
+								</div>
 
-					$dbh->query("UPDATE message SET `titre`='$titre', `contenu`='$conte', `date`='$date' WHERE id_message=$current_id");
-					echo'
+							</div>
+						</div>
+						<textarea id="textarea" name="conte" placeholder="Contenu du message" class="form-control" required><?= $res['contenu'] ?></textarea>
+
+						<div class="card-footer text-center">
+							<button type="submit" name="submit2" class="btn btn-primary btn-lg">Modifier</button>
+						</div>
+					</div>
+
+					<?php
+					$conte = (!empty($_POST['conte'])) ? $_POST['conte'] : null;
+					$titre = (!empty($_POST['titre'])) ? $_POST['titre'] : null;
+					$date = (!empty($_POST['date'])) ? $_POST['date'] : null;
+					if (isset($_POST['submit2'])) {
+
+						$dbh->query("UPDATE message SET `titre`='$titre', `contenu`='$conte', `date`='$date' WHERE id_message=$current_id");
+						echo '
 					<SCRIPT LANGUAGE="JavaScript">
 					document.location.href="index.php"
 					</SCRIPT>';
 					}
 
-				?>
+					?>
 				</form>
-
-				<div class="col-xl-4 col-lg-4 col-md-3 col-sm-12 col-12"></div>
 			</div>
 
 		</div>
+
+	</div>
+
+	<?php include 'footer.php'; ?>
+
+
+	<!-- EDITEUR DE TEXTE -->
+	<script src="dist/pell.js"></script>
+	<script>
+		var editor = window.pell.init({
+			element: document.getElementById('editor'),
+			defaultParagraphSeparator: 'p',
+			onChange: function(html) {
+				document.getElementById('text-output').innerHTML = html
+				document.getElementById('html-output').textContent = html
+			}
+		})
+	</script>
+	<!-- /EDITEUR DE TEXTE -->
+
 </body>
