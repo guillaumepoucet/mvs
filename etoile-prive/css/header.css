@@ -187,3 +187,9 @@ nav ul li a {
 .active {
   display: inline-grid;
 }
+
+@media (max-width: 1019.98px) {
+  nav ul li, .dropbtn .dropbtn2{
+    line-height: 4em;
+  }
+}
