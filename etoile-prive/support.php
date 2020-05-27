@@ -19,7 +19,7 @@ include 'inc/interface/verif_co.php';
 	<link rel="apple-touch-icon" sizes="180x180" href="../images/apple-icon-180x180.png">
 	<link rel="icon" type="image/png" sizes="192x192" href="../images/android-icon-192x192.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="96x96" href="../images/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="../images/favicon-96qx96.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="../images/favicon-16x16.png">
 	<link rel="manifest" href="/manifest.json">
 	<meta name="msapplication-TileColor" content="#ffffff">
@@ -29,16 +29,16 @@ include 'inc/interface/verif_co.php';
 	<title>Support Administrateur</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" media="screen" href="css/support.css">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-		integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 	<link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 	<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+	<link rel="stylesheet" href="dist\pell.css">
 
 </head>
 
 <body>
 
-	<?php include('header.php');?>
+	<?php include('header.php'); ?>
 	<!----------------------- ONGLET DE NAVIGATION ----------------------->
 	<div class="espace"></div>
 	<div class="espace"></div>
@@ -69,7 +69,7 @@ include 'inc/interface/verif_co.php';
 
 		<div class="row titreG">
 			<!----------------------- COLONNE DE GAUCHE ----------------------->
-			<div class="mt- col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12" >
+			<div class="mt- col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
 
 				<h4> Création d'un nouveau compte </h4>
 				<center>
@@ -98,13 +98,13 @@ include 'inc/interface/verif_co.php';
 			</div>
 			<?php
 			include 'inc/interface/co.php';
-			if(isset($_POST['submit'])){
-				$log= $_POST['login'];
+			if (isset($_POST['submit'])) {
+				$log = $_POST['login'];
 				$mdp = $_POST['mdp'];
-				$type =$_POST['type'];
+				$type = $_POST['type'];
 				$pass_hache = password_hash($mdp, PASSWORD_BCRYPT);
 				$dbh->query("INSERT INTO login (`login`, `mdp`, `islocked`, `type`) VALUES ('$log', '$pass_hache','0', '$type')");
-			}
+			};
 			?>
 
 			<!------------------------- TABLEAU DE DROITE---------------------->
@@ -127,39 +127,47 @@ include 'inc/interface/verif_co.php';
 								</thead>
 								<tbody>
 									<?php
-    							include 'inc/interface/co.php';
-								$req = $dbh->query('SELECT * FROM `login`');
-								while ($donnees = $req->fetch()){
-							?>
-									<tr>
-										<td><?php echo $donnees['login']; ?></td>
+									include 'inc/interface/co.php';
+									$req = $dbh->query('SELECT * FROM `login`');
+									while ($donnees = $req->fetch()) {
+									?>
+										<tr>
+											<td><?php echo $donnees['login']; ?></td>
 
-										<td><?php if ($donnees['type']==2){echo 'Admin';}
-									else {echo 'User';} ?></td>
+											<td><?php if ($donnees['type'] == 2) {
+													echo 'Admin';
+												} else {
+													echo 'User';
+												} ?></td>
 
-										<td><?php if ($donnees['islocked']==0){echo 'Non';}
-									else {echo 'Oui';} ?></td>
+											<td><?php if ($donnees['islocked'] == 0) {
+													echo 'Non';
+												} else {
+													echo 'Oui';
+												} ?></td>
 
-										<div class="suppline2">
+											<div class="suppline2">
 
-											<td>
-												<a href="modif_user.php?id=<?=$donnees['IDlogin']?>"
-													class="btn btn-warning">MODIFIER</a>
-											</td>
+												<td>
+													<a href="modif_user.php?id=<?= $donnees['IDlogin'] ?>" class="btn btn-warning">MODIFIER</a>
+												</td>
 
-										</div>
+											</div>
 
 
-										<td><?php if ($donnees['login']==Administrateur){echo 'Non supprimable';}
-									else {echo '
-										<a href="inc/interface/delete_user.php?id='.$donnees['IDlogin'].'" class="btn btn-danger">SUPPRIMER</a>
-										';} ?></td>
-									</tr>
+											<td><?php if ($donnees['login'] == 'Administrateur') {
+													echo 'Non supprimable';
+												} else {
+													echo '
+										<a href="inc/interface/delete_user.php?id=' . $donnees['IDlogin'] . '" class="btn btn-danger">SUPPRIMER</a>
+										';
+												} ?></td>
+										</tr>
 
 
 									<?php }
-        							$req->closeCursor(); // Termine le traitement de la requête
-       							 ?>
+									$req->closeCursor(); // Termine le traitement de la requête
+									?>
 								</tbody>
 							</table>
 						</div>
@@ -182,109 +190,172 @@ include 'inc/interface/verif_co.php';
 				<h2> INTERFACE DE GESTION DES MESSAGES-PREDEFINIS </h2>
 			</div>
 		</div>
-	</div>
-	<div class="espace"></div>
-	<div class="container-fluid">
+
+		<div class="espace"></div>
+
 		<div class="row">
-			<div class="col-xl-4 col-lg-4 col-md-3 col-sm-12 col-12"> </div>
-			<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
+
+			<div class="mx-lg-4 col-lg col-md-6 col-sm-12 col-12">
 				<?php
-					$result="";
-					$requ="";
-					$requ=$dbh->query('SELECT * FROM message');
-					$result=$requ->fetch();
-					$requ->closeCursor();
+				$result = "";
+				$requ = "";
+				$requ = $dbh->query('SELECT * FROM message');
+				$result = $requ->fetch();
+				$requ->closeCursor();
 				?>
 				<form method="post">
-					<div class="form-group">
-						<label for="textarea">Modifier le message d'acceuil : </label>
-						<textarea id="textarea" name="cont" class="form-control"><?=$result['contenu']?></textarea>
+					<div class="card">
+						<h5 class="card-header">Modifier le message d'acceuil</h5>
+						<div class="card-body text-left">
+							<div class="form-group">
+								<textarea id="textarea" name="cont" class="form-control"><?= $result['contenu'] ?></textarea>
+							</div>
+							<div class="form-group">
+								<div class="pell">
+									<div class="content">
+										<div id="editor-accueil" class="pell"></div>
+										<div style="margin-top:20px;">
+											<h5 class="card-title">Aperçu</h5>
+											<div id="text-output"></div>
+										</div>
+										<div style="margin-top:20px; display:none;">
+											<pre id="html-output"></pre>
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+						<div class="card-footer">
+							<button type="submit" name="submit1" class="btn btn-primary btn-lg">Modifier</button>
+						</div>
 					</div>
-					<button type="submit" name="submit1" class="btn btn-primary btn-lg">Modifier</button>
 				</form>
 				<?php
-				$cont=$_POST['cont'];
-				if(isset($_POST['submit1'])){
+				$cont = (!empty($_POST['cont'])) ? $_POST['cont'] : null;
+
+				if ((isset($_POST['cont'])) && (($_POST['cont']) != null)) {
 
 					$dbh->query("UPDATE message SET contenu='$cont' WHERE id_message=1");
-					echo'
+					echo '
 					<SCRIPT LANGUAGE="JavaScript">
 					document.location.href="support.php#2"
 					</SCRIPT>';
-					}
+				}
 				?>
-				<div class="col-xl-4 col-lg-4 col-md-3 col-sm-12 col-12"></div>
+
 			</div>
 
-		</div>
-
-	</div>
-	<div class="container-fluid mt-5">
-		<div class="row">
-			<div class="col-xl-4 col-lg-4 col-md-3 col-sm-12 col-12"> </div>
-			<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
+			<div class="mx-lg-4 col-lg col-md-6 col-sm-12 col-12 ">
 				<form method="post">
-					<div class="form-group">
-						<p>Ajouter un message : </p>
-						<input type="text" class="form-control" name="titre" placeholder="Titre du message">
-						<textarea id="textarea" name="conte" placeholder="Contenu du message" class="form-control"
-							required></textarea>
-						<input type="date" class="form-control" name="date">
+					<div class="card">
+						<h5 class="card-header">Ajouter un message</h5>
+						<div class="card-body text-left">
+							<div class="form-group">
+								<h5 class="card-title">Choississez une date</h5>
+								<input type="date" class="form-control col-4" name="date">
+							</div>
+							<div class="form-group">
+								<h5 class="card-title">Titre</h5>
+								<input type="text" class="form-control form-control-lg" name="titre" placeholder="Titre du message">
+							</div>
+							<div class="form-group">
+								<h5 class="card-title">Contenu</h5>
+								<div class="pell">
+									<div class="content">
+										<div id="editor" class="pell"></div>
+										<div style="margin-top:20px;">
+											<h5 class="card-title">Aperçu</h5>
+											<div id="text-output"></div>
+										</div>
+										<div style="margin-top:20px; display:none;">
+											<pre id="html-output"></pre>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="card-footer text-center">
+							<button type="submit" name="submit2" class="btn btn-primary btn-lg">Ajouter</button>
+						</div>
 					</div>
-					<button type="submit" name="submit2" class="btn btn-primary btn-lg">Ajouter</button>
 					<?php
-				$conte=$_POST['conte'];
-				$titre=$_POST['titre'];
-				$date =$_POST['date'];
-				if(isset($_POST['submit2'])){
+					$conte = (!empty($_POST['conte'])) ? ($_POST['conte']) : null;
+					$titre = (!empty($_POST['titre'])) ? ($_POST['titre']) : null;
+					$date = (!empty($_POST['date'])) ? ($_POST['date']) : null;
 
-					$dbh->query("INSERT INTO message (`titre`, `contenu`, `date`) VALUES ('$titre', '$conte','$date') ");
-					echo'
-					<SCRIPT LANGUAGE="JavaScript">
-					document.location.href="support.php#2"
-					</SCRIPT>';
+					if (isset($_POST['submit2'])) {
+
+						$dbh->query("INSERT INTO message (`titre`, `contenu`, `date`) VALUES ('$titre', '$conte','$date') ");
+						echo '
+				<SCRIPT LANGUAGE="JavaScript">
+				document.location.href="support.php#2"
+				</SCRIPT>';
 					}
 
-				?>
+					?>
 				</form>
-
-				<div class="col-xl-4 col-lg-4 col-md-3 col-sm-12 col-12"></div>
 			</div>
-
 		</div>
-		<div class="pb-5">
-			<div class="main-carousel mt-5  col-8 offset-2" data-flickity='{ "cellAlign": "left", "contain": true }'>
-				<?php
-			$super=$dbh->query('SELECT * FROM message WHERE id_message >1 ORDER BY date DESC LIMIT 50');
-			$sup=$super->fetchAll();
-			foreach($sup as $su){
-			echo ("<div class='carousel-cell w-50 text-center'>
+	</div>
+		<!-- /row -->
+		<div class="row">
+			<div class="pb-5">
+				<div class="main-carousel mt-5 offset-2" data-flickity='{ "cellAlign": "left", "contain": true }'>
+					<?php
+					$super = $dbh->query('SELECT * FROM message WHERE id_message >1 ORDER BY date DESC LIMIT 50');
+					$sup = $super->fetchAll();
+					foreach ($sup as $su) {
+						echo ("<div class='carousel-cell w-50 text-center'>
 					<div class='card mx-auto w-100 card'>
 						<div class='card-body'>
-							<h5 class='card-title'>".$su['titre']."</h5>
-							<h6 class='card-subtitle mb-2 text-muted'>".$su['date']."</h6>
-							<p class='card-text'>".$su['contenu']."</p>
+							<h5 class='card-title'>" . $su['titre'] . "</h5>
+							<h6 class='card-subtitle mb-2 text-muted'>" . $su['date'] . "</h6>
+							<p class='card-text'>" . $su['contenu'] . "</p>
 							<div class='row d-flex justify-content-center'>
-								<a href='modif_mess.php?id=".$su['id_message']."' class='btn btn-primary mr-3'>Modifier</a>
-								<a href='inc/interface/delete_mess.php?id=".$su['id_message']."' class='btn btn-danger'>Supprimer</a>
+								<a href='modif_mess.php?id=" . $su['id_message'] . "' class='btn btn-primary mr-3'>Modifier</a>
+								<a href='inc/interface/delete_mess.php?id=" . $su['id_message'] . "' class='btn btn-danger'>Supprimer</a>
 							</div>
 						</div>
 					</div>
 				</div>");
-			}
-			?>
+					}
+					?>
+				</div>
 			</div>
 		</div>
-	</div>
-		<?php	include 'footer.php';?>
+	<?php include 'footer.php'; ?>
 
-		<!----------------------------- SCRIPT ----------------------->
-		<script src="js/main.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js">
-		</script>
-		<script src="https://cdn.jsdelivr.net/parallax.js/1.4.2/parallax.min.js"></script>
-		<script src="java/jquery-1.6.1.min.js" type="text/javascript" charset="utf-8"></script>
-		<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+	<!----------------------------- SCRIPT ----------------------->
+	<script src="js/main.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js">
+	</script>
+	<script src="https://cdn.jsdelivr.net/parallax.js/1.4.2/parallax.min.js"></script>
+	<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+
+
+	<!-- EDITEUR DE TEXTE -->
+	<script src="dist/pell.js"></script>
+	<script>
+		var editor = window.pell.init({
+			element: document.getElementById('editor'),
+			defaultParagraphSeparator: 'p',
+			onChange: function(html) {
+				document.getElementById('text-output').innerHTML = html
+				document.getElementById('html-output').textContent = html
+			}
+		})
+		var editor = window.pell.init({
+			element: document.getElementById('editor-accueil'),
+			defaultParagraphSeparator: 'p',
+			onChange: function(html) {
+				document.getElementById('text-output').innerHTML = html
+				document.getElementById('html-output').textContent = html
+			}
+		})
+	</script>
+	<!-- /EDITEUR DE TEXTE -->
+
 
 </body>
 
