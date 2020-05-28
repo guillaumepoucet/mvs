@@ -1,12 +1,13 @@
 <?php session_start();
-include 'inc/interface/verif_co.php'
+include 'inc/interface/verif_co.php';
+setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR.ISO8859-1');
+header('Content-type: text/html; charset=UTF-8');
 ?>
 
 <!DOCTYPE html>
 <html lang="fr">
 
 <head>
-  <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
   <!--FAVICON-->
@@ -68,7 +69,7 @@ include 'inc/interface/verif_co.php'
         <div class="card w-100 m-2 my-md-3 mx-md-5">
           <h5 class="card-header"><?= $su['titre'] ?></h5>
           <div class="card-body text-left">
-            <h6 class="card-subtitle mb-2 text-muted"><?= date('d M Y', strtotime($su['date'])) ?></h6>
+            <h6 class="card-subtitle mb-2 text-muted"><?= strftime('%d/%m/%Y', strtotime($su['date'])) ?></h6>
             <p class="card-text"><?= $su['contenu'] ?></p>
           </div>
             <div class="card-footer text-right"><?php if (isset($_SESSION['admin'])) : ?>
