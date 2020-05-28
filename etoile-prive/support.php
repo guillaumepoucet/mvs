@@ -193,41 +193,52 @@ include 'inc/interface/verif_co.php';
 
 		<div class="espace"></div>
 
-		<div class="row">
+		<div class="row justify-content-center">
 
-			<div class="mx-lg-4 col-lg col-md-6 col-sm-12 col-12">
+			<!-- MODIFICATION MESSAGE ACCUEIL -->
+			<div class="col-lg-11 col-md-6 col-sm-12 col-12">
+
+				<!-- Alerte message modif ok -->
+				<div class="alert alert-success alert-dismissible fade show d-none" role="alert">
+					Votre message a bien été modifié !
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<!-- /Alerte message modif ok -->
+
 				<?php
 				$result = "";
-				$requ = "";
-				$requ = $dbh->query('SELECT * FROM message');
-				$result = $requ->fetch();
-				$requ->closeCursor();
+				$req = "";
+				$req = $dbh->query('SELECT * FROM message WHERE id_message = 1');
+				$result = $req->fetch();
 				?>
-				<form method="post">
-					<div class="card">
-						<h5 class="card-header">Modifier le message d'acceuil</h5>
-						<div class="card-body text-left">
-							<div class="form-group">
-								<textarea id="textarea" name="cont" class="form-control"><?= $result['contenu'] ?></textarea>
-							</div>
+				<form method="POST" id="edit-msg-form">
+					<div class="card mb-5">
+						<h5 class="card-header">Modifier le message d'accueil</h5>
+						<div class="card-body text-left px-5">
 							<div class="form-group">
 								<div class="pell">
-									<div class="content">
-										<div id="editor-accueil" class="pell"></div>
-										<div style="margin-top:20px;">
+									<div class="row content">
+										<div class="col-6">
+											<h5 class="card-title">Éditer</h5>
+											<div id="editor" class="pell"></div>
+											<div style="margin-top:20px; display:none;">
+												<pre id="html-output"></pre>
+											</div>
+										</div>
+										<div class="col-6">
 											<h5 class="card-title">Aperçu</h5>
 											<div id="text-output"></div>
-										</div>
-										<div style="margin-top:20px; display:none;">
-											<pre id="html-output"></pre>
 										</div>
 									</div>
 								</div>
 
 							</div>
 						</div>
-						<div class="card-footer">
-							<button type="submit" name="submit1" class="btn btn-primary btn-lg">Modifier</button>
+
+						<div class="card-footer text-center">
+							<button type="submit" id="submit" name="submit2" class="btn btn-primary btn-lg">Modifier</button>
 						</div>
 					</div>
 				</form>
@@ -245,68 +256,76 @@ include 'inc/interface/verif_co.php';
 				?>
 
 			</div>
+			<!-- /MODIFICATION MESSAGE ACCUEIL -->
 
-			<div class="mx-lg-4 col-lg col-md-6 col-sm-12 col-12 ">
+			<!-- AJOUT DE NOUVEAUX MESSAGES -->
+			<div class="col-lg-11 col-md-6 col-sm-12 col-12 ">
 				<form method="post">
 					<div class="card">
 						<h5 class="card-header">Ajouter un message</h5>
-						<div class="card-body text-left">
-							<div class="form-group">
-								<h5 class="card-title">Choississez une date</h5>
-								<input type="date" class="form-control col-4" name="date">
-							</div>
-							<div class="form-group">
-								<h5 class="card-title">Titre</h5>
-								<input type="text" class="form-control form-control-lg" name="titre" placeholder="Titre du message">
-							</div>
-							<div class="form-group">
-								<h5 class="card-title">Contenu</h5>
-								<div class="pell">
-									<div class="content">
-										<div id="editor" class="pell"></div>
-										<div style="margin-top:20px;">
-											<h5 class="card-title">Aperçu</h5>
-											<div id="text-output"></div>
-										</div>
-										<div style="margin-top:20px; display:none;">
-											<pre id="html-output"></pre>
+						<div class="row card-body text-left">
+							<div class="col-6">
+								<div class="form-group">
+									<h5 class="card-title">Choississez une date</h5>
+									<input type="date" class="form-control col-4" name="date">
+								</div>
+								<div class="form-group">
+									<h5 class="card-title">Titre</h5>
+									<input type="text" class="form-control form-control-lg" name="titre" placeholder="Titre du message">
+								</div>
+								<div class="form-group">
+									<h5 class="card-title">Contenu</h5>
+									<div class="pell">
+										<div class="content">
+											<div id="editor2" class="pell"></div>
 										</div>
 									</div>
 								</div>
 							</div>
+							<div class="col-6">
+								<div style="margin-top:20px;">
+									<h5 class="card-title">Aperçu</h5>
+									<div id="text-output2"></div>
+								</div>
+								<div style="margin-top:20px; display:none;">
+									<pre id="html-output2" name="contenu"></pre>
+								</div>
+							</div>
 						</div>
 						<div class="card-footer text-center">
-							<button type="submit" name="submit2" class="btn btn-primary btn-lg">Ajouter</button>
+							<button type="submit" name="edit-msg" class="btn btn-primary btn-lg">Ajouter</button>
 						</div>
-					</div>
-					<?php
-					$conte = (!empty($_POST['conte'])) ? ($_POST['conte']) : null;
-					$titre = (!empty($_POST['titre'])) ? ($_POST['titre']) : null;
-					$date = (!empty($_POST['date'])) ? ($_POST['date']) : null;
+						<?php
+						$conte = (!empty($_POST['conte'])) ? ($_POST['conte']) : null;
+						$titre = (!empty($_POST['titre'])) ? ($_POST['titre']) : null;
+						$date = (!empty($_POST['date'])) ? ($_POST['date']) : null;
 
-					if (isset($_POST['submit2'])) {
+						if (isset($_POST['submit2'])) {
 
-						$dbh->query("INSERT INTO message (`titre`, `contenu`, `date`) VALUES ('$titre', '$conte','$date') ");
-						echo '
-				<SCRIPT LANGUAGE="JavaScript">
-				document.location.href="support.php#2"
-				</SCRIPT>';
-					}
+							$dbh->query("INSERT INTO message (`titre`, `contenu`, `date`) VALUES ('$titre', '$conte','$date') ");
+							echo '
+						<SCRIPT LANGUAGE="JavaScript">
+						document.location.href="support.php#2"
+						</SCRIPT>';
+						}
 
-					?>
+						?>
 				</form>
 			</div>
+			<!-- AJOUT DE NOUVEAUX MESSAGES -->
 		</div>
+		<!-- /ROW -->
 	</div>
+	<!-- /CONTAINER -->
+	<div class="container-fluid">
 		<!-- /row -->
 		<div class="row">
-			<div class="pb-5">
-				<div class="main-carousel mt-5 offset-2" data-flickity='{ "cellAlign": "left", "contain": true }'>
-					<?php
-					$super = $dbh->query('SELECT * FROM message WHERE id_message >1 ORDER BY date DESC LIMIT 50');
-					$sup = $super->fetchAll();
-					foreach ($sup as $su) {
-						echo ("<div class='carousel-cell w-50 text-center'>
+			<div class="main-carousel mt-5 col-12" data-flickity='{ "cellAlign": "left", "contain": true }'>
+				<?php
+				$super = $dbh->query('SELECT * FROM message WHERE id_message >1 ORDER BY date DESC LIMIT 50');
+				$sup = $super->fetchAll();
+				foreach ($sup as $su) {
+					echo ("<div class='carousel-cell w-50 text-center'>
 					<div class='card mx-auto w-100 card'>
 						<div class='card-body'>
 							<h5 class='card-title'>" . $su['titre'] . "</h5>
@@ -319,11 +338,12 @@ include 'inc/interface/verif_co.php';
 						</div>
 					</div>
 				</div>");
-					}
-					?>
-				</div>
+				}
+				?>
 			</div>
+
 		</div>
+	</div>
 	<?php include 'footer.php'; ?>
 
 	<!----------------------------- SCRIPT ----------------------->
@@ -334,9 +354,12 @@ include 'inc/interface/verif_co.php';
 	<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
 
 
+
 	<!-- EDITEUR DE TEXTE -->
 	<script src="dist/pell.js"></script>
+
 	<script>
+		// EDITEUR DE TEXTE
 		var editor = window.pell.init({
 			element: document.getElementById('editor'),
 			defaultParagraphSeparator: 'p',
@@ -345,12 +368,20 @@ include 'inc/interface/verif_co.php';
 				document.getElementById('html-output').textContent = html
 			}
 		})
+
+		$(function() {
+			var text = "<?= $result['contenu'] ?>";
+			console.log(text);
+			$('#editor .pell-content').append(text);
+			$('#text-output').html(text);
+			$('#html-output').text(text);
+		})
 		var editor = window.pell.init({
-			element: document.getElementById('editor-accueil'),
+			element: document.getElementById('editor2'),
 			defaultParagraphSeparator: 'p',
 			onChange: function(html) {
-				document.getElementById('text-output').innerHTML = html
-				document.getElementById('html-output').textContent = html
+				document.getElementById('text-output2').innerHTML = html
+				document.getElementById('html-output2').textContent = html
 			}
 		})
 	</script>

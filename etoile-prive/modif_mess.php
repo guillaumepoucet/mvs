@@ -50,7 +50,13 @@ if (!isset($_SESSION['admin'])) {
 				$req = $dbh->query('SELECT * from message WHERE id_message= ' . $current_id . '');
 				$res = $req->fetch();
 				?>
-				<form method="post">
+				<div class="alert alert-success alert-dismissible fade show d-none" role="alert">
+					Votre message a bien été modifié !
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form method="POST" id="edit-msg-form">
 					<div class="card">
 						<h5 class="card-header">Modifier un message</h5>
 						<div class="card-body text-left">
@@ -78,27 +84,11 @@ if (!isset($_SESSION['admin'])) {
 
 							</div>
 						</div>
-						<textarea id="textarea" name="conte" placeholder="Contenu du message" class="form-control" required><?= $res['contenu'] ?></textarea>
 
 						<div class="card-footer text-center">
-							<button type="submit" name="submit2" class="btn btn-primary btn-lg">Modifier</button>
+							<button type="submit" id="submit" name="submit2" class="btn btn-primary btn-lg">Modifier</button>
 						</div>
 					</div>
-
-					<?php
-					$conte = (!empty($_POST['conte'])) ? $_POST['conte'] : null;
-					$titre = (!empty($_POST['titre'])) ? $_POST['titre'] : null;
-					$date = (!empty($_POST['date'])) ? $_POST['date'] : null;
-					if (isset($_POST['submit2'])) {
-
-						$dbh->query("UPDATE message SET `titre`='$titre', `contenu`='$conte', `date`='$date' WHERE id_message=$current_id");
-						echo '
-					<SCRIPT LANGUAGE="JavaScript">
-					document.location.href="index.php"
-					</SCRIPT>';
-					}
-
-					?>
 				</form>
 			</div>
 
@@ -108,10 +98,22 @@ if (!isset($_SESSION['admin'])) {
 
 	<?php include 'footer.php'; ?>
 
+	<!-- TRAITEMENT PHP -->
+	<?php
+	$contenu = (!empty($_POST['contenu'])) ? $_POST['contenu'] : null;
+	$titre = (!empty($_POST['titre'])) ? $_POST['titre'] : null;
+	$date = (!empty($_POST['date'])) ? $_POST['date'] : null;
+
+	if (isset($_POST['submit2'])) {
+		$dbh->query("UPDATE message SET `titre`='$titre', `contenu`='$contenu', `date`='$date' WHERE id_message=$current_id");
+	}
+	?>
 
 	<!-- EDITEUR DE TEXTE -->
 	<script src="dist/pell.js"></script>
+
 	<script>
+		// EDITEUR DE TEXTE
 		var editor = window.pell.init({
 			element: document.getElementById('editor'),
 			defaultParagraphSeparator: 'p',
@@ -120,7 +122,42 @@ if (!isset($_SESSION['admin'])) {
 				document.getElementById('html-output').textContent = html
 			}
 		})
+		$(function() {
+			var text = "<?= $res['contenu'] ?>";
+			$('.pell-content').append(text);
+			$('#text-output').html(text);
+			$('#html-output').text(text);
+		})
+		// AJAX
+		$(function() {
+			$('#submit').click(function(e) {
+				e.preventDefault();
+				var newText = $('#html-output').text();
+				var form = $('form')[0];
+				var fd = new FormData(form);
+				fd.append('contenu', newText);
+				fd.append('submit2', 'ok')
+				// for (var pair of fd.entries()) {
+				//     console.log(pair[0] + ', ' + pair[1]);
+				// }
+				$.ajax({
+					type: 'POST',
+					data: fd,
+					contentType: false,
+					cache: false,
+					processData: false,
+					success: function(data) {
+						$('.alert').removeClass('d-none');
+						window.scrollTo(0,0);
+					},
+					error: function() {
+						alert('error');
+					},
+					dataType: 'text'
+				})
+			})
+		})
 	</script>
-	<!-- /EDITEUR DE TEXTE -->
+
 
 </body>

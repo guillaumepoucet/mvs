@@ -59,10 +59,10 @@ include 'inc/interface/verif_co.php'
   <!-- /jumbotron -->
   <div id="msg-container" class="container">
     <div class="row justify-content-center">
-      <h4 class="col-12 my-3 my-md-4">Derniers messages</h4>
+      <h4 class="col-12 my-3 my-md-4">Anciens messages</h4>
 
       <?php
-      $super = $dbh->query('SELECT * FROM message WHERE id_message >1 ORDER BY date DESC LIMIT 3');
+      $super = $dbh->query('SELECT * FROM message WHERE id_message >4 ORDER BY date DESC LIMIT 50');
       $sup = $super->fetchAll();
       foreach ($sup as $su) : ?>
         <div class="card w-100 m-2 my-md-3 mx-md-5">
@@ -79,7 +79,7 @@ include 'inc/interface/verif_co.php'
 
       <?php endforeach ?>
 
-      <a type="button" class="btn btn-primary btn-lg" href="anciens-msg.php">Voir les anciens messages</a>
+      <a type="button" class="btn btn-primary btn-lg" href="index.php">Revenir en arrière</a>
 
     </div>
   </div>
