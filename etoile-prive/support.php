@@ -199,7 +199,7 @@ include 'inc/interface/verif_co.php';
 			<div class="col-lg-11 col-md-6 col-sm-12 col-12">
 
 				<!-- Alerte message modif ok -->
-				<div class="alert alert-success alert-dismissible fade show d-none" role="alert">
+				<div class="alert alert-accueil alert-success alert-dismissible fade show d-none" role="alert">
 					Votre message a bien été modifié !
 					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
@@ -238,21 +238,16 @@ include 'inc/interface/verif_co.php';
 						</div>
 
 						<div class="card-footer text-center">
-							<button type="submit" id="submit" name="submit2" class="btn btn-primary btn-lg">Modifier</button>
+							<button type="submit" id="submit3" name="accueil" class="btn btn-primary btn-lg">Modifier</button>
 						</div>
 					</div>
 				</form>
 				<?php
-				$cont = (!empty($_POST['cont'])) ? $_POST['cont'] : null;
+				$contenu = (!empty($_POST['contenu'])) ? $_POST['contenu'] : null;
 
-				if ((isset($_POST['cont'])) && (($_POST['cont']) != null)) {
-
-					$dbh->query("UPDATE message SET contenu='$cont' WHERE id_message=1");
-					echo '
-					<SCRIPT LANGUAGE="JavaScript">
-					document.location.href="support.php#2"
-					</SCRIPT>';
-				}
+				if (isset($_POST['submit3']) && (!empty($_POST['contenu']))) {
+					$dbh->query("UPDATE message SET contenu='$contenu' WHERE id_message=1");
+				};
 				?>
 
 			</div>
@@ -260,10 +255,20 @@ include 'inc/interface/verif_co.php';
 
 			<!-- AJOUT DE NOUVEAUX MESSAGES -->
 			<div class="col-lg-11 col-md-6 col-sm-12 col-12 ">
-				<form method="post">
+
+				<!-- Alerte message modif ok -->
+				<div class="alert alert-msg alert-success alert-dismissible fade show d-none" role="alert">
+					Votre message a bien été ajouter !
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<!-- /Alerte message modif ok -->
+
+				<form method="post" id="ajout-msg">
 					<div class="card">
 						<h5 class="card-header">Ajouter un message</h5>
-						<div class="row card-body text-left">
+						<div class="row card-body text-left px-5">
 							<div class="col-6">
 								<div class="form-group">
 									<h5 class="card-title">Choississez une date</h5>
@@ -283,7 +288,7 @@ include 'inc/interface/verif_co.php';
 								</div>
 							</div>
 							<div class="col-6">
-								<div style="margin-top:20px;">
+								<div>
 									<h5 class="card-title">Aperçu</h5>
 									<div id="text-output2"></div>
 								</div>
@@ -293,20 +298,15 @@ include 'inc/interface/verif_co.php';
 							</div>
 						</div>
 						<div class="card-footer text-center">
-							<button type="submit" name="edit-msg" class="btn btn-primary btn-lg">Ajouter</button>
+							<button type="submit" id="submit4" name="submit4" class="btn btn-primary btn-lg">Ajouter</button>
 						</div>
 						<?php
-						$conte = (!empty($_POST['conte'])) ? ($_POST['conte']) : null;
+						$contenu = (!empty($_POST['contenu'])) ? ($_POST['contenu']) : null;
 						$titre = (!empty($_POST['titre'])) ? ($_POST['titre']) : null;
 						$date = (!empty($_POST['date'])) ? ($_POST['date']) : null;
 
-						if (isset($_POST['submit2'])) {
-
-							$dbh->query("INSERT INTO message (`titre`, `contenu`, `date`) VALUES ('$titre', '$conte','$date') ");
-							echo '
-						<SCRIPT LANGUAGE="JavaScript">
-						document.location.href="support.php#2"
-						</SCRIPT>';
+						if ((isset($_POST['submit4'])) && (!empty($_POST['contenu']))) {
+							$dbh->query("INSERT INTO message (`titre`, `contenu`, `date`) VALUES ('$titre', '$contenu','$date') ");
 						}
 
 						?>
@@ -368,14 +368,6 @@ include 'inc/interface/verif_co.php';
 				document.getElementById('html-output').textContent = html
 			}
 		})
-
-		$(function() {
-			var text = "<?= $result['contenu'] ?>";
-			console.log(text);
-			$('#editor .pell-content').append(text);
-			$('#text-output').html(text);
-			$('#html-output').text(text);
-		})
 		var editor = window.pell.init({
 			element: document.getElementById('editor2'),
 			defaultParagraphSeparator: 'p',
@@ -383,6 +375,65 @@ include 'inc/interface/verif_co.php';
 				document.getElementById('text-output2').innerHTML = html
 				document.getElementById('html-output2').textContent = html
 			}
+		})
+
+		$(function() {
+			// insertion du message d'accueil dans l'éditeur de texte
+			var text = "<?= $result['contenu'] ?>";
+			$('#editor .pell-content').append(text);
+			$('#text-output').html(text);
+			$('#html-output').text(text);
+			// declaration fonction insertion ajax dans BDD
+			var insertBDD = function(param, set) {
+				$.ajax({
+					type: 'POST',
+					data: param,
+					contentType: false,
+					cache: false,
+					processData: false,
+					success: function() {
+						$('.alert-' + set).removeClass('d-none');
+					},
+					error: function() {
+						alert('Une erreur de traitement est apparue')
+					}
+				})
+			}
+
+			// insertion du message d'acceuil dans la BDD
+			$('#submit3').click(function(e) {
+				e.preventDefault();
+				var set = 'accueil';
+				var contenu = $('#html-output').text();
+				var fd = new FormData();
+				fd.append('contenu', contenu);
+				fd.append('submit3', 'ok');
+				insertBDD(fd, set);
+			})
+			$('#submit4').click(function(e) {
+				e.preventDefault();
+				var set = 'msg';
+				var contenu = $('#html-output2').text();
+				var form = $('#ajout-msg')[0];
+				var fd = new FormData(form);
+				fd.append('contenu', contenu);
+				fd.append('submit4', 'ok');
+				for (var pair of fd.entries()) {
+				    console.log(pair[0] + ', ' + pair[1]);
+				}
+				insertBDD(fd, set);
+			})
+
+
+			// var submit = function(e) {
+			// 		e.preventDefault();
+			// 		var set = name;
+			// 		var contenu = $('#html-output').text();
+			// 		var fd = new FormData();
+			// 		fd.append('contenu', contenu);
+			// 		fd.append(param, 'ok');
+			// 		insertBDD(fd, set);
+			// 	}
 		})
 	</script>
 	<!-- /EDITEUR DE TEXTE -->

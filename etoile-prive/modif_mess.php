@@ -151,7 +151,7 @@ if (!isset($_SESSION['admin'])) {
 						window.scrollTo(0,0);
 					},
 					error: function() {
-						alert('error');
+						alert('Une erreur de traitement est apparue');
 					},
 					dataType: 'text'
 				})
