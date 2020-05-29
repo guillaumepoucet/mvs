@@ -133,14 +133,6 @@ var defaultActions = {
       var url = window.prompt('Enter the link URL');
       if (url) exec('createLink', url);
     }
-  },
-  image: {
-    icon: '&#128247;',
-    title: 'Image',
-    result: function result() {
-      var url = window.prompt('Enter the image URL');
-      if (url) exec('insertImage', url);
-    }
   }
 };
 
