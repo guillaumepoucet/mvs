@@ -1,12 +1,13 @@
 <?php session_start();
-include 'inc/interface/verif_co.php'
+include 'inc/interface/verif_co.php';
+setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR.ISO8859-1');
+header('Content-type: text/html; charset=UTF-8');
 ?>
 
 <!DOCTYPE html>
 <html lang="fr">
 
 <head>
-  <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
   <!--FAVICON-->
@@ -58,28 +59,36 @@ include 'inc/interface/verif_co.php'
 
   <!-- /jumbotron -->
   <div id="msg-container" class="container">
+
     <div class="row justify-content-center">
-      <h4 class="col-12 my-3 my-md-4">Anciens messages</h4>
+      <div id="alert-del-msg" class="alert alert-danger col-11 d-none" role="alert">
+        Le message a bien été supprimé.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <h4 class="col-12 my-3 my-md-4">Derniers messages</h4>
 
       <?php
-      $super = $dbh->query('SELECT * FROM message WHERE id_message >4 ORDER BY date DESC LIMIT 50');
+      $super = $dbh->query('SELECT * FROM message WHERE id_message >1 ORDER BY date DESC LIMIT 50');
       $sup = $super->fetchAll();
       foreach ($sup as $su) : ?>
-        <div class="card w-100 m-2 my-md-3 mx-md-5">
+        <div id="msg-<?= $su['id_message'] ?>" class="card w-100 m-2 my-md-3 mx-md-5">
           <h5 class="card-header"><?= $su['titre'] ?></h5>
           <div class="card-body text-left">
-            <h6 class="card-subtitle mb-2 text-muted"><?= date('d M Y', strtotime($su['date'])) ?></h6>
+            <h6 class="card-subtitle mb-2 text-muted"><?= strftime('%d/%m/%Y', strtotime($su['date'])) ?></h6>
             <p class="card-text"><?= $su['contenu'] ?></p>
           </div>
-            <div class="card-footer text-right"><?php if (isset($_SESSION['admin'])) : ?>
-                <a href='modif_mess.php?id=<?= $su['id_message'] ?>' class='btn btn-primary mr-3'>Modifier</a>
-                <a href='inc/interface/delete_mess.php?id=<?= $su['id_message'] ?>' class='btn btn-danger'>Supprimer</a>
-              <?php endif ?></div>
+          <div class="card-footer text-right">
+            <?php if (isset($_SESSION['admin'])) : ?>
+              <a href='modif_mess.php?id=<?= $su['id_message'] ?>' class='btn btn-primary mr-3'>Modifier</a>
+              <a data-id="<?= $su['id_message'] ?>" class='btn btn-danger text-white delete-msg'>Supprimer</a>
+            <?php endif ?></div>
         </div>
 
       <?php endforeach ?>
 
-      <a type="button" class="btn btn-primary btn-lg" href="index.php">Revenir en arrière</a>
+      <a type="button" class="btn btn-primary btn-lg" href="anciens-msg.php">Voir les anciens messages</a>
 
     </div>
   </div>
@@ -87,6 +96,8 @@ include 'inc/interface/verif_co.php'
 
   <script src=" https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+
+  <script src="js\delete-msg.js"></script>
 </body>
 
 

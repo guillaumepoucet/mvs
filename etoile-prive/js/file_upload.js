@@ -1,6 +1,6 @@
 $(function () {
-    // type de document
     $('.modal-js').load("js\\file_upload_modal.php");
+    // type de document
     var typeDoc = $('#file').attr('name');
     $('#btn-upload').click(function (e) {
         e.preventDefault();
@@ -15,7 +15,7 @@ $(function () {
             // for (var pair of fd.entries()) {
             //     console.log(pair[0] + ', ' + pair[1]);
             // }
-            $('#myModal').modal('show');
+            $('#UploadFileModal').modal('show');
             $('.file_name').text(files.name);
             $('.modal-ok').click(function () {
                 $.ajax({
@@ -28,16 +28,16 @@ $(function () {
                     success: function (data) {
                         if (data == 0) {
                             alert("Le fichier doit être au format .PDF");
-                            $('#myModal').modal('hide');
+                            $('#UploadFileModal').modal('hide');
                             $('.input-file').val('');
                         } else {
-                            $('#myModal').modal('hide');
+                            $('#UploadFileModal').modal('hide');
                             $('iframe').attr('src', data);
                             $('.input-file').val('');
                         }
                     },
                     error: function () {
-                        $('#myModal').modal('hide');
+                        $('#UploadFileModal').modal('hide');
                         alert('Téléchargement échoué');
                         $('.input-file').val('');
                     },
