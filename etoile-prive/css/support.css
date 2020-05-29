@@ -14,10 +14,6 @@ body {
   text-align: center;
 }
 
-h2 {
-  padding-top: 3em;
-}
-
 .espace {
   height: 3em;
 }
@@ -40,6 +36,17 @@ h2 {
   color: white;
   height: 4em;
   line-height: 4em;
+}
+
+/* tableau */
+.column-1 {
+  background-color: #ececec;
+}
+
+th:first-child, td:first-child
+{
+  position:sticky;
+  left:0px;
 }
 
 /********************************* PARRALAXE **************************************/

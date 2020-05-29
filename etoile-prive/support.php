@@ -33,6 +33,7 @@ include 'inc/interface/verif_co.php';
 	<link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 	<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
 	<link rel="stylesheet" href="dist\pell.css">
+	
 
 </head>
 
@@ -63,17 +64,17 @@ include 'inc/interface/verif_co.php';
 
 
 	<div class="container-fluid">
-		<h2 id="1"><u> INTERFACE DE GESTION DE COMPTES </u></h2>
+		<h2 id="1" class="mt-4"><u>INTERFACE DE GESTION DE COMPTES</u></h2>
 
 		<div class="espace"></div>
 
-		<div class="row titreG">
+		<div class="row justify-content-center">
 			<!----------------------- COLONNE DE GAUCHE ----------------------->
-			<div class="mt- col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+			<div class="mb-3 col-xl-4 col-lg-4 col-md-10 col-sm-12 col-12">
 
-				<h4> Création d'un nouveau compte </h4>
+				<h4 class="mb-4">Création d'un nouveau compte</h4>
 				<center>
-					<div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-12 titreG">
+					<div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12">
 						<form method="post">
 							<div class="form-group">
 								<label for="texte">Nom de compte : </label>
@@ -90,7 +91,7 @@ include 'inc/interface/verif_co.php';
 									<option value="2">Administrateur</option>
 								</select>
 							</div>
-							<button type="submit" name="submit" class="btn btn-primary btn-lg">Envoyer</button>
+							<button type="submit" name="submit" class="btn btn-primary btn-lg mt-2">Envoyer</button>
 						</form>
 
 					</div>
@@ -109,94 +110,92 @@ include 'inc/interface/verif_co.php';
 
 			<!------------------------- TABLEAU DE DROITE---------------------->
 
-			<div class="mt-3 col-xl-8 col-lg-8 col-md-8 col-sm-12 col-12" id="1">
-				<h3> Comptes actifs </h2>
-
-					<center>
-						<div class="col-xl-11 col-lg-11 col-md-11 col-sm-12 col-12">
-
-							<table class="table table-sm">
-								<thead class="table-info">
-									<tr>
-										<th class="table-danger">Nom du compte</th>
-										<th>Type de compte</th>
-										<th>Compte bloqué</th>
-										<th>Modification</th>
-										<th>Suppression</th>
-									</tr>
-								</thead>
-								<tbody>
-									<?php
-									include 'inc/interface/co.php';
-									$req = $dbh->query('SELECT * FROM `login`');
-									while ($donnees = $req->fetch()) {
-									?>
+			
+			<div class="col-xl-8 col-lg-8 col-md-11 col-sm-12 col-12">
+				<center>
+					<h4 class="m-4 mt-lg-0">Comptes actifs</h4>
+							<div class="table-responsive">
+								<table class="table table-sm">
+									<thead class="table-info">
 										<tr>
-											<td><?php echo $donnees['login']; ?></td>
+											<th class="table-danger">Nom du compte</th>
+											<th>Type de compte</th>
+											<th>Compte bloqué</th>
+											<th>Modification</th>
+											<th>Suppression</th>
+										</tr>
+									</thead>
+									<tbody>
+										<?php
+										include 'inc/interface/co.php';
+										$req = $dbh->query('SELECT * FROM `login`');
+										while ($donnees = $req->fetch()) {
+										?>
+											<tr>
+												<td class="column-1"><?php echo $donnees['login']; ?></td>
 
-											<td><?php if ($donnees['type'] == 2) {
-													echo 'Admin';
-												} else {
-													echo 'User';
-												} ?></td>
+												<td><?php if ($donnees['type'] == 2) {
+														echo 'Admin';
+													} else {
+														echo 'User';
+													} ?></td>
 
-											<td><?php if ($donnees['islocked'] == 0) {
-													echo 'Non';
-												} else {
-													echo 'Oui';
-												} ?></td>
+												<td><?php if ($donnees['islocked'] == 0) {
+														echo 'Non';
+													} else {
+														echo 'Oui';
+													} ?></td>
 
-											<div class="suppline2">
+												<div class="suppline2">
 
-												<td>
-													<a href="modif_user.php?id=<?= $donnees['IDlogin'] ?>" class="btn btn-warning">MODIFIER</a>
-												</td>
+													<td>
+														<a href="modif_user.php?id=<?= $donnees['IDlogin'] ?>" class="btn btn-warning">MODIFIER</a>
+													</td>
 
-											</div>
+												</div>
 
 
-											<td><?php if ($donnees['login'] == 'Administrateur') {
-													echo 'Non supprimable';
-												} else {
-													echo '
+												<td><?php if ($donnees['login'] == 'Administrateur') {
+														echo 'Non supprimable';
+													} else {
+														echo '
 										<a href="inc/interface/delete_user.php?id=' . $donnees['IDlogin'] . '" class="btn btn-danger">SUPPRIMER</a>
 										';
-												} ?></td>
-										</tr>
+													} ?></td>
+											</tr>
 
 
-									<?php }
-									$req->closeCursor(); // Termine le traitement de la requête
-									?>
-								</tbody>
-							</table>
+										<?php }
+										$req->closeCursor(); // Termine le traitement de la requête
+										?>
+									</tbody>
+								</table>
+							</div>
+						</Center>
 						</div>
-					</Center>
-			</div>
+		
 		</div> <!-- FERMETURE DU ROW ligne 49 -->
 	</div> <!-- FERMETURE DU CONTAINER ligne 48 -->
 	<div class="espace"></div>
-	<div class="espace"></div>
 
 	<!------------------------- Parallaxe ---------------------->
-	<div class="parallax-window" data-parallax="scroll" data-image-src="images/mbsP.png" alt="Competences"></div>
-
+	<div class="parallax-window d-none d-sm-block"  data-parallax="scroll" data-image-src="images/mbsP.png" alt="Competences"></div>
+	<img class="img-fluid d-sm-none w-100" src="images/mbsP.png" alt="">
 
 	<!----------------------- GESTION DES MESSAGES PRE-DEFINIS ----------------------->
 
 	<div class="container-fluid">
 		<div class="row titreG">
 			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" id="2">
-				<h2> INTERFACE DE GESTION DES MESSAGES-PREDEFINIS </h2>
+				<h2 class="my-5"> INTERFACE DE GESTION DES MESSAGES-PREDEFINIS </h2>
 			</div>
 		</div>
 
-		<div class="espace"></div>
 
 		<div class="row justify-content-center">
 
 			<!-- MODIFICATION MESSAGE ACCUEIL -->
-			<div class="col-lg-11 col-md-6 col-sm-12 col-12">
+			<div class="col-lg-11 col-md-12 col-sm-12 col-12">
 
 				<!-- Alerte message modif ok -->
 				<div class="alert alert-accueil alert-success alert-dismissible fade show d-none" role="alert">
@@ -216,19 +215,19 @@ include 'inc/interface/verif_co.php';
 				<form method="POST" id="edit-msg-form">
 					<div class="card mb-5">
 						<h5 class="card-header">Modifier le message d'accueil</h5>
-						<div class="card-body text-left px-5">
+						<div class="card-body text-left px-lg-5">
 							<div class="form-group">
 								<div class="pell">
 									<div class="row content">
-										<div class="col-6">
+										<div class="col-12 col-md-6">
 											<h5 class="card-title">Éditer</h5>
 											<div id="editor" class="pell"></div>
 											<div style="margin-top:20px; display:none;">
 												<pre id="html-output"></pre>
 											</div>
 										</div>
-										<div class="col-6">
-											<h5 class="card-title">Aperçu</h5>
+										<div class="col-12 col-md-6">
+											<h5 class="card-title mt-3 mt-md-0">Aperçu</h5>
 											<div id="text-output"></div>
 										</div>
 									</div>
@@ -254,7 +253,7 @@ include 'inc/interface/verif_co.php';
 			<!-- /MODIFICATION MESSAGE ACCUEIL -->
 
 			<!-- AJOUT DE NOUVEAUX MESSAGES -->
-			<div class="col-lg-11 col-md-6 col-sm-12 col-12 ">
+			<div class="col-lg-11 col-md-12 col-sm-12 col-12 ">
 
 				<!-- Alerte message modif ok -->
 				<div class="alert alert-msg alert-success alert-dismissible fade show d-none" role="alert">
@@ -268,11 +267,11 @@ include 'inc/interface/verif_co.php';
 				<form method="post" id="ajout-msg">
 					<div class="card">
 						<h5 class="card-header">Ajouter un message</h5>
-						<div class="row card-body text-left px-5">
-							<div class="col-6">
+						<div class="row card-body text-left px-lg-5">
+							<div class="col-12 col-md-6">
 								<div class="form-group">
 									<h5 class="card-title">Choississez une date</h5>
-									<input type="date" class="form-control col-4" name="date">
+									<input type="date" class="form-control col-12 col-lg-4" name="date">
 								</div>
 								<div class="form-group">
 									<h5 class="card-title">Titre</h5>
@@ -287,7 +286,7 @@ include 'inc/interface/verif_co.php';
 									</div>
 								</div>
 							</div>
-							<div class="col-6">
+							<div class="col-12 col-md-6">
 								<div>
 									<h5 class="card-title">Aperçu</h5>
 									<div id="text-output2"></div>
@@ -317,6 +316,8 @@ include 'inc/interface/verif_co.php';
 		<!-- /ROW -->
 	</div>
 	<!-- /CONTAINER -->
+	</div>
+
 	<div class="container-fluid">
 		<!-- /row -->
 		<div class="row">
@@ -344,6 +345,7 @@ include 'inc/interface/verif_co.php';
 
 		</div>
 	</div>
+
 	<?php include 'footer.php'; ?>
 
 	<!----------------------------- SCRIPT ----------------------->
@@ -384,10 +386,12 @@ include 'inc/interface/verif_co.php';
 			$('#text-output').html(text);
 			$('#html-output').text(text);
 			// declaration fonction insertion ajax dans BDD
-			var insertBDD = function(param, set) {
+			// fd étant tableau
+			// set renvoyant au nom, relié à l'alerte qui apparaît si success
+			var insertBDD = function(fd, set) {
 				$.ajax({
 					type: 'POST',
-					data: param,
+					data: fd,
 					contentType: false,
 					cache: false,
 					processData: false,
@@ -403,8 +407,8 @@ include 'inc/interface/verif_co.php';
 			// insertion du message d'acceuil dans la BDD
 			$('#submit3').click(function(e) {
 				e.preventDefault();
-				var set = 'accueil';
 				var contenu = $('#html-output').text();
+				var set = 'accueil';
 				var fd = new FormData();
 				fd.append('contenu', contenu);
 				fd.append('submit3', 'ok');
@@ -412,28 +416,25 @@ include 'inc/interface/verif_co.php';
 			})
 			$('#submit4').click(function(e) {
 				e.preventDefault();
-				var set = 'msg';
 				var contenu = $('#html-output2').text();
+				var set = 'msg';
 				var form = $('#ajout-msg')[0];
 				var fd = new FormData(form);
 				fd.append('contenu', contenu);
 				fd.append('submit4', 'ok');
-				for (var pair of fd.entries()) {
-				    console.log(pair[0] + ', ' + pair[1]);
-				}
 				insertBDD(fd, set);
 			})
-
-
-			// var submit = function(e) {
-			// 		e.preventDefault();
-			// 		var set = name;
-			// 		var contenu = $('#html-output').text();
-			// 		var fd = new FormData();
-			// 		fd.append('contenu', contenu);
-			// 		fd.append(param, 'ok');
-			// 		insertBDD(fd, set);
+			// $('#test5').click(function(e) {
+			// 	e.preventDefault();
+			// 	var set = this.name;
+			// 	var fd = new FormData(form);
+			// 	// fd.append('contenu', contenu);
+			// 	fd.append(set, 'ok');
+			// 	for (var pair of fd.entries()) {
+			// 		console.log(pair[0] + ', ' + pair[1]);
 			// 	}
+			// 	// insertBDD(fd, set);
+			// })
 		})
 	</script>
 	<!-- /EDITEUR DE TEXTE -->
