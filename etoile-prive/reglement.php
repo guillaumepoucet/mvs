@@ -43,7 +43,7 @@
     <div class="container-fluid">
         <div class="row">
             <?php if (isset($_SESSION['admin'])) : ?>
-                <div class="col-md-3">
+                <div class="col-lg-3 order-2">
                     <!-- select -->
                     <!-- upload -->
                     <div class="card">
@@ -63,7 +63,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-9">
+                <div class="col-lg-9 order-1">
                 <?php else : ?>
                     <div class="col-md-12">
                     <?php endif ?>
