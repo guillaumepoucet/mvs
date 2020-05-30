@@ -31,11 +31,11 @@
           </div>
         <li class="li"><a href="repertoire.php">Répertoire</a></li>
         <li class="li"><a href="carte.php">Carte Interactive</a></li>
-        <?php if (isset($_SESSION['admin'])) {
+        <?php if ($_SESSION['type'] == 2) {
           echo '
           <li class="li"><a href="support.php" class="dropbtn">Support Administrateur</a></li>';
         } ?>
-        <li class="li"><a href="../index.php"><i class="fas fa-sign-in-alt"></i></a></li>
+        <li class="li"><a href="inc/interface/log_out.php"><i class="fas fa-sign-in-alt"></i></a></li>
         <!--<li><a><i class="fas fa-sign-out-alt"></i></a></li>-->
 
       </ul>

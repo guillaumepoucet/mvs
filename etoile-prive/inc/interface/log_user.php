@@ -1,3 +1,5 @@
 <?php
-$req = $conn->prepare('SELECT * FROM utilisateurs WHERE login = :email AND mdp = :passsword');
+$req = $conn->prepare(' SELECT * FROM utilisateurs 
+                        WHERE login = :email 
+                        AND mdp = :passsword');
 ?>

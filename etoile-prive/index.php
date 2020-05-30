@@ -43,9 +43,9 @@ header('Content-type: text/html; charset=UTF-8');
   <!-- jumbotron -->
   <h2 class="hello display-4">Bonjour
     <span>
-      <?php if (isset($_SESSION['admin'])) {
+      <?php if (isset($_SESSION) && (isset($_SESSION['admin']))) {
         echo $_SESSION['admin'];
-      } else {
+      } elseif (isset($_SESSION) && (isset($_SESSION['user']))) {
         echo $_SESSION['user'];
       }; ?></span> !
   </h2>

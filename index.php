@@ -48,7 +48,6 @@
                 <img class="mt-5" src="images/logo.png" width="300px" alt="logo étoile champenoise">
             </div>
 
-
             <div class="container-fluid">
                 <div class="row">
 
