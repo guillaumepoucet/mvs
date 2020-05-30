@@ -64,7 +64,6 @@
                 session_start();
                 $_SESSION['user'] = $user['login'];
                 $_SESSION['type'] = $user['type'];
-                var_dump($_SESSION);
                 echo '
                 <SCRIPT LANGUAGE="JavaScript">
                 document.location.href="index.php"
