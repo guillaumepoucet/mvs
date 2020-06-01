@@ -1,7 +1,7 @@
 <?php session_start();
-if (!isset($_SESSION['admin'])) {
-	header('location:loggin.php');
-} ?>
+if ($_SESSION['type'] != 2) {
+	header('location:index.php');
+}; ?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -148,7 +148,7 @@ if (!isset($_SESSION['admin'])) {
 					processData: false,
 					success: function(data) {
 						$('.alert').removeClass('d-none');
-						window.scrollTo(0,0);
+						window.scrollTo(0, 0);
 					},
 					error: function() {
 						alert('Une erreur de traitement est apparue');

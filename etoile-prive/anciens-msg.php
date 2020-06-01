@@ -80,7 +80,7 @@ header('Content-type: text/html; charset=UTF-8');
             <p class="card-text"><?= $su['contenu'] ?></p>
           </div>
           <div class="card-footer text-right">
-            <?php if (isset($_SESSION['admin'])) : ?>
+            <?php if (isset($_SESSION['type']) && ($_SESSION['type'] == 2)) : ?>
               <a href='modif_mess.php?id=<?= $su['id_message'] ?>' class='btn btn-primary mr-3'>Modifier</a>
               <a data-id="<?= $su['id_message'] ?>" class='btn btn-danger text-white delete-msg'>Supprimer</a>
             <?php endif ?></div>
