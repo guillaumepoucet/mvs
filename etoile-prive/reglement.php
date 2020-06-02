@@ -42,7 +42,7 @@
     <div class="espace"></div>
     <div class="container-fluid">
         <div class="row">
-            <?php if (isset($_SESSION['admin'])) : ?>
+        <?php if ($_SESSION['type'] == 2): ?>
                 <div class="col-lg-3 order-2">
                     <!-- select -->
                     <!-- upload -->
